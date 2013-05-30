@@ -638,7 +638,7 @@ STEPPER_CURRENT_CONTROL
     #define X_STEP_PIN         15
     #define X_DIR_PIN          21
     #define X_MIN_PIN          18
-    #define X_MAX_PIN           -2
+    #define X_MAX_PIN           -1
 
     #define Y_STEP_PIN         22
     #define Y_DIR_PIN          23
@@ -690,6 +690,8 @@ STEPPER_CURRENT_CONTROL
     
     #define E0_PINS E0_STEP_PIN,E0_DIR_PIN,E0_ENABLE_PIN,
     #define E1_PINS
+    
+    #define FAN_PIN           4
 
 #ifndef KNOWN_BOARD
 #error Unknown MOTHERBOARD value in configuration.h
