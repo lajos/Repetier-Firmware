@@ -462,7 +462,7 @@ void extruder_set_temperature(float temp_celsius,byte extr) {
   if(temp_celsius==tc->targetTemperatureC) return;
   tc->targetTemperature = conv_temp_raw(tc->sensorType,temp_celsius);
   tc->targetTemperatureC = temp_celsius;
-  if(temp_celsius>=50) extruder[extr].coolerPWM = extruder[extr].coolerSpeed;
+//TODO this needed?  if(temp_celsius>=50) extruder[extr].coolerPWM = extruder[extr].coolerSpeed;
    OUT_P_FX("TargetExtr",extr,0);
    OUT_P_FX_LN(":",temp_celsius,0);
 #if USE_OPS==1  
@@ -1018,7 +1018,7 @@ void manage_temperatures() {
     act->currentTemperature = read_raw_temperature(act->sensorType,act->sensorPin);
     act->currentTemperatureC = conv_raw_temp(act->sensorType,act->currentTemperature);
     if(controller<NUM_EXTRUDER) {
-       if(act->currentTemperatureC<50 && act->targetTemperatureC<50)
+       if(act->currentTemperatureC<EXTRUDER_FAN_COOL_TEMP && act->targetTemperatureC<EXTRUDER_FAN_COOL_TEMP)
          extruder[controller].coolerPWM = 0;
        else
          extruder[controller].coolerPWM = extruder[controller].coolerSpeed;

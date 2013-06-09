@@ -141,13 +141,16 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
     /** \brief Number of steps for a 1mm move in x direction. 
     For xy gantry use 2*belt moved!
     Overridden if EEPROM activated. */
-    #define XAXIS_STEPS_PER_MM 122.5
+//    #define XAXIS_STEPS_PER_MM 122.5
+    #define XAXIS_STEPS_PER_MM 248
     /** \brief Number of steps for a 1mm move in y direction.
     For xy gantry use 2*belt moved!
     Overridden if EEPROM activated.*/
-    #define YAXIS_STEPS_PER_MM 122.5
+//    #define YAXIS_STEPS_PER_MM 122.5
+    #define YAXIS_STEPS_PER_MM 248
     /** \brief Number of steps for a 1mm move in z direction  Overridden if EEPROM activated.*/
-    #define ZAXIS_STEPS_PER_MM 100.66
+//    #define ZAXIS_STEPS_PER_MM 100.66
+    #define ZAXIS_STEPS_PER_MM 206.5
 #endif
 
 // ##########################################################################################
@@ -158,7 +161,8 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 #define EXT0_X_OFFSET 0
 #define EXT0_Y_OFFSET 0
 // for skeinforge 40 and later, steps to pull the plasic 1 mm inside the extruder, not out.  Overridden if EEPROM activated.
-#define EXT0_STEPS_PER_MM 475 //385
+//#define EXT0_STEPS_PER_MM 475
+#define EXT0_STEPS_PER_MM 970
 // What type of sensor is used?
 // 1 is 100k thermistor (Epcos B57560G0107F000 - RepRap-Fab.org and many other)
 // 2 is 200k thermistor
@@ -193,10 +197,10 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 // length of filament pulled inside the heater. For repsnap or older
 // skeinforge use hiher values.
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_FEEDRATE 30
+#define EXT0_MAX_FEEDRATE 40
 // Feedrate from halted extruder in mm/s
 //  Overridden if EEPROM activated.
-#define EXT0_MAX_START_FEEDRATE 10
+#define EXT0_MAX_START_FEEDRATE 20
 // Acceleration in mm/s^2
 //  Overridden if EEPROM activated.
 #define EXT0_MAX_ACCELERATION 10000
@@ -205,7 +209,7 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 - 1 = PID Temperature control. Is better but needs good PID values. Defaults are a good start for most extruder.
  Overridden if EEPROM activated.
 */
-#define EXT0_HEAT_MANAGER 1
+#define EXT0_HEAT_MANAGER 0
 /** Wait x seconds, after reaching target temperature. Only used for M109.  Overridden if EEPROM activated. */
 #define EXT0_WATCHPERIOD 1
 
@@ -247,7 +251,7 @@ L is the linear factor and seems to be working better then the quadratic depende
 
 /** \brief Temperature to retract filament when extruder is heating up. Overridden if EEPROM activated.
 */
-#define EXT0_WAIT_RETRACT_TEMP 		150
+#define EXT0_WAIT_RETRACT_TEMP 		175
 /** \brief Units (mm/inches) to retract filament when extruder is heating up. Overridden if EEPROM activated. Set
 to 0 to disable.
 */
@@ -261,7 +265,7 @@ The codes are only executed for multiple extruder when changing the extruder. */
 /** The extruder cooler is a fan to cool the extruder when it is heating. If you turn the etxruder on, the fan goes on. */
 #define EXT0_EXTRUDER_COOLER_PIN -1
 /** PWM speed for the cooler fan. 0=off 255=full speed */
-#define EXT0_EXTRUDER_COOLER_SPEED 255
+#define EXT0_EXTRUDER_COOLER_SPEED 177
 
 
 // =========================== Configuration for second extruder ========================
@@ -390,7 +394,7 @@ If your EXT0_PID_MAX is low, you should prefer the second method.
 
 Uncomment define to use force the temperature into the range for given watchperiod. 
 */
-//#define TEMP_HYSTERESIS 5
+#define TEMP_HYSTERESIS 3
 
 /** Userdefined thermistor table
 
@@ -675,9 +679,9 @@ on this endstop.
 // For delta robot Z_MAX_LENGTH is maximum travel of the towers and should be set to the distance between the hotend
 // and the platform when the printer is at its home position.
 // If EEPROM is enabled these values will be overidden with the values in the EEPROM
-#define X_MAX_LENGTH 165
-#define Y_MAX_LENGTH 175
-#define Z_MAX_LENGTH 80
+#define X_MAX_LENGTH 100
+#define Y_MAX_LENGTH 100
+#define Z_MAX_LENGTH 120
 
 // Coordinates for the minimum axis. Can also be negative if you want to have the bed start at 0 and the printer can go to the left side
 // of the bed. Maximum coordinate is given by adding the above X_MAX_LENGTH values.
@@ -804,14 +808,14 @@ If the interval at full speed is below this value, smoothing is disabled for tha
 /** \brief X, Y, Z max acceleration in mm/s^2 for printing moves or retracts. Make sure your printer can go that high! 
  Overridden if EEPROM activated.
 */
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 5000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 5000
-#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 5000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 6000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 6000
+#define MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 6000
 
 /** \brief X, Y, Z max acceleration in mm/s^2 for travel moves.  Overridden if EEPROM activated.*/
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 5000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 5000
-#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 5000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 6000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 6000
+#define MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 6000
 
 /** \brief Maximum allowable jerk.
 
@@ -1022,9 +1026,9 @@ IMPORTANT: With mode <>0 some changes in configuration.h are not set any more, a
 #define EEPROM_MODE 0
 /** Set to false to disable SD support: */
 #ifndef SDSUPPORT  // Some boards have sd support on board. These define the values already in pins.h
-#define SDSUPPORT false
+#define SDSUPPORT true
 /** If set to false all files with longer names then 8.3 or having a tilde in the name will be hidden */
-#define SD_ALLOW_LONG_NAMES false
+#define SD_ALLOW_LONG_NAMES true
 // Uncomment to enable or changed card detection pin. With card detection the card is mounted on insertion.
 #define SDCARDDETECT -1
 // Change to true if you get a inserted message on removal. 
@@ -1129,6 +1133,21 @@ Values must be in range 1..255
 #define UI_SET_MAX_EXTRUDER_TEMP   270
 #define UI_SET_EXTRUDER_FEEDRATE 2 // mm/sec
 #define UI_SET_EXTRUDER_RETRACT_DISTANCE 3 // mm
+
+// ###############################################################################
+// ##                             Tantillus settings                            ##
+// ###############################################################################
+
+#define TANTILLUS               // Tantillus special features
+
+#ifdef TANTILLUS
+
+  #define COMBINE_FANS
+  #define COMBINE_FAN_EXT0
+  
+  #define EXTRUDER_FAN_COOL_TEMP    50   // fan stays on until extruder temp(C) is above this value
+
+#endif
 
 #endif
 

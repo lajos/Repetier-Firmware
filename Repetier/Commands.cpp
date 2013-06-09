@@ -29,11 +29,13 @@
 #include <SPI.h>
 
 const int sensitive_pins[] PROGMEM = SENSITIVE_PINS; // Sensitive pin list for M42
+void combine_fans();
 
 void check_periodical() {
   if(!execute_periodical) return;
   execute_periodical=0;
   manage_temperatures();
+  combine_fans();
   if(--counter_250ms==0) {
      if(manage_monitor<=1+NUM_EXTRUDER)
         write_monitor();
@@ -99,6 +101,7 @@ void change_flowate_multiply(int factor) {
   printer_state.extrudeMultiply = factor;
   OUT_P_I_LN("FlowMultiply:",factor);
 }
+
 void set_fan_speed(int speed,bool wait) {  
 #if FAN_PIN>=0
   speed = constrain(speed,0,255);
@@ -107,6 +110,27 @@ void set_fan_speed(int speed,bool wait) {
   pwm_pos[NUM_EXTRUDER+2] = speed;
 #endif
 }
+
+int get_fan_speed() {
+  return (int)pwm_pos[NUM_EXTRUDER+2];
+}
+
+void combine_fans() {
+#ifdef COMBINE_FANS
+static byte pwm_fan_last = 0;
+#if FAN_PIN>=0
+  pwm_fan = pwm_pos[NUM_EXTRUDER+2];
+#ifdef COMBINE_FAN_EXT0
+  if (extruder[0].coolerPWM>pwm_fan) pwm_fan = extruder[0].coolerPWM;
+#endif
+#endif
+  if (pwm_fan != pwm_fan_last) {
+    OUT_P_I_LN("fan speed:", pwm_fan);
+  }
+  pwm_fan_last = pwm_fan;
+#endif
+}
+
 #if DRIVE_SYSTEM==3
 void delta_move_to_top_endstops(float feedrate) {
   long up_steps = printer_state.zMaxSteps;

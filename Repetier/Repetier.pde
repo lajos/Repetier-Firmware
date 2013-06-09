@@ -233,7 +233,9 @@ int maxadv2=0;
 float maxadvspeed=0;
 #endif
 byte pwm_pos[NUM_EXTRUDER+3]; // 0-NUM_EXTRUDER = Heater 0-NUM_EXTRUDER of extruder, NUM_EXTRUDER = Heated bed, NUM_EXTRUDER+1 Board fan, NUM_EXTRUDER+2 = Fan
-
+#ifdef COMBINE_FANS
+byte pwm_fan;
+#endif
 int waitRelax=0; // Delay filament relax at the end of print, could be a simple timeout
 #ifdef USE_OPS
 byte printmoveSeen=0;
@@ -2590,7 +2592,11 @@ ISR(PWM_TIMER_VECTOR)
     if((pwm_pos_set[NUM_EXTRUDER+1] = pwm_pos[NUM_EXTRUDER+1])>0) WRITE(FAN_BOARD_PIN,1);
 #endif
 #if FAN_PIN>-1 && FEATURE_FAN_CONTROL
+#ifdef COMBINE_FANS
+    if((pwm_pos_set[NUM_EXTRUDER+2] = pwm_fan)>0) WRITE(FAN_PIN,1);
+#else
     if((pwm_pos_set[NUM_EXTRUDER+2] = pwm_pos[NUM_EXTRUDER+2])>0) WRITE(FAN_PIN,1);
+#endif
 #endif
 #if HEATED_BED_HEATER_PIN>-1 && HAVE_HEATED_BED
     if((pwm_pos_set[NUM_EXTRUDER] = pwm_pos[NUM_EXTRUDER])>0) WRITE(HEATED_BED_HEATER_PIN,1);
