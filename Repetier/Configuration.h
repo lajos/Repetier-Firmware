@@ -1209,6 +1209,8 @@ Values must be in range 1..255
   // this combines the main fan and the extruder fan, and will keep the
   // fans on after the print finishes until the extruder is below EXTRUDER_FAN_COOL_TEMP
   //
+  // important: leave EXT0_EXTRUDER_COOLER_PIN -1
+  //
   #define COMBINE_FANS
   #define COMBINE_FAN_EXT0
 
