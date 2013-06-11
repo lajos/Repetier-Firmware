@@ -141,15 +141,12 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
     /** \brief Number of steps for a 1mm move in x direction. 
     For xy gantry use 2*belt moved!
     Overridden if EEPROM activated. */
-//    #define XAXIS_STEPS_PER_MM 122.5
     #define XAXIS_STEPS_PER_MM 248
     /** \brief Number of steps for a 1mm move in y direction.
     For xy gantry use 2*belt moved!
     Overridden if EEPROM activated.*/
-//    #define YAXIS_STEPS_PER_MM 122.5
     #define YAXIS_STEPS_PER_MM 248
     /** \brief Number of steps for a 1mm move in z direction  Overridden if EEPROM activated.*/
-//    #define ZAXIS_STEPS_PER_MM 100.66
     #define ZAXIS_STEPS_PER_MM 206.5
 #endif
 
@@ -157,11 +154,12 @@ the wrong direction change INVERT_X_DIR or INVERT_Y_DIR.
 // ##                           Extruder configuration                                     ##
 // ##########################################################################################
 
+// for each extruder, fan will stay on until extruder temperature is below this value 
+#define EXTRUDER_FAN_COOL_TEMP 42
 
 #define EXT0_X_OFFSET 0
 #define EXT0_Y_OFFSET 0
 // for skeinforge 40 and later, steps to pull the plasic 1 mm inside the extruder, not out.  Overridden if EEPROM activated.
-//#define EXT0_STEPS_PER_MM 475
 #define EXT0_STEPS_PER_MM 970
 // What type of sensor is used?
 // 1 is 100k thermistor (Epcos B57560G0107F000 - RepRap-Fab.org and many other)
@@ -756,7 +754,7 @@ on this endstop.
     */
 #define MAX_FEEDRATE_X 150
 #define MAX_FEEDRATE_Y 150
-#define MAX_FEEDRATE_Z 50
+#define MAX_FEEDRATE_Z 150
 
 /** Speed in mm/min for finding the home position.  Overridden if EEPROM activated. */
 #define HOMING_FEEDRATE_X 80
@@ -1142,10 +1140,77 @@ Values must be in range 1..255
 
 #ifdef TANTILLUS
 
+/*
+########################################################  
+#
+#  default values from Sublime for 1/16 microstepping
+#
+#  you mustadjust the values above on the respective #define lines
+#  (the values entered above are calibrated for my printer at 1/32 microstepping) 
+#
+########################################################  
+
+  XAXIS_STEPS_PER_MM 122.5
+  YAXIS_STEPS_PER_MM 122.5
+  ZAXIS_STEPS_PER_MM 2514.628
+
+  EXT0_STEPS_PER_MM 450
+
+  MAX_FEEDRATE_X 150
+  MAX_FEEDRATE_Y 150
+  MAX_FEEDRATE_Z 15 (for cable Z axis 150)
+
+  EXT0_MAX_FEEDRATE 40
+  
+  MAX_JERK 10.0
+  MAX_ZJERK 4.0  (for cable Z axis 10.0)
+  
+  EXT0_MAX_ACCELERATION 10000
+    
+#
+# repetier works different from marlin where default acceleration and max gcode
+# specified acceleration are separate values. if you are not overriding acceleration
+# from gcode, use these values:
+#
+  
+  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
+  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
+  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300  (for cable Z axis 3000)
+
+  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
+  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
+  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300 (for cable Z axis 3000)
+  
+#
+# or you can set the default acceleration in gcode by adding this to the gcode header:
+#
+# M201 X3000 Y3000
+# M202 X3000 Y3000
+#
+# for cable Z axis:
+#
+# M201 X3000 Y3000 Z3000
+# M202 X3000 Y3000 Z3000
+#
+# and use these values for the max here:
+#
+
+  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 8000
+  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 8000
+  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300  (for cable Z axis 8000)
+
+  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 8000
+  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 8000
+  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300 (for cable Z axis 8000)
+  
+*/
+
+  // Tantillus uses the same fans for cooling the carriage and the print
+  // this combines the main fan and the extruder fan, and will keep the
+  // fans on after the print finishes until the extruder is below EXTRUDER_FAN_COOL_TEMP
+  //
   #define COMBINE_FANS
   #define COMBINE_FAN_EXT0
-  
-  #define EXTRUDER_FAN_COOL_TEMP    50   // fan stays on until extruder temp(C) is above this value
 
 #endif
 

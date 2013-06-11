@@ -1,3 +1,16 @@
+#
+#  This fork is a work in progress modification for the Tantillus printer designed by Sublime (www.tantillus.org).
+#  
+#  What's done:
+#    - added description for Tantillus axis settings (see #TANTILLUS section in Cnfiguration.h)
+#    - defined FAN_PIN for Azteeg X1
+#    - combined extruder and main fan (on Tantillus same fan is used to cool carriage)
+#    - fan stays on to cool carriage while extruder reaches safe temperature after print finished
+#
+#  What's not done:
+#    - LCD functions (like load/unload filament) as I don't have an LCD connected yet ;(
+#
+
 # Repetier-Firmware - the fast and user friendly firmware
 
 by repetier  (repetierdev@gmail.com)
