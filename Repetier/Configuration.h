@@ -1169,8 +1169,11 @@ Values must be in range 1..255
     
 #
 # repetier works different from marlin where default acceleration and max gcode
-# specified acceleration are separate values. if you are not overriding acceleration
-# from gcode, use these values:
+# specified acceleration are separate values. so we'll use the default acceleration
+# values here, that can be overriden from gcode, for example:
+#
+# M201 X8000 Y8000
+# M202 X8000 Y8000
 #
   
   MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
@@ -1180,29 +1183,7 @@ Values must be in range 1..255
   MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 3000
   MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 3000
   MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300 (for cable Z axis 3000)
-  
-#
-# or you can set the default acceleration in gcode by adding this to the gcode header:
-#
-# M201 X3000 Y3000
-# M202 X3000 Y3000
-#
-# for cable Z axis:
-#
-# M201 X3000 Y3000 Z3000
-# M202 X3000 Y3000 Z3000
-#
-# and use these values for the max here:
-#
-
-  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_X 8000
-  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Y 8000
-  MAX_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300  (for cable Z axis 8000)
-
-  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_X 8000
-  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Y 8000
-  MAX_TRAVEL_ACCELERATION_UNITS_PER_SQ_SECOND_Z 300 (for cable Z axis 8000)
-  
+    
 */
 
   // Tantillus uses the same fans for cooling the carriage and the print
